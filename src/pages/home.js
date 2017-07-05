@@ -6,9 +6,22 @@ import {
   ImageListItem,
   SimpleListItem
 } from 'jrs-react-components'
+import { map } from 'ramda'
+import { connect } from 'react-redux'
 import LinkButton from '../components/link-button'
 
-const Home = function() {
+const Home = function(props) {
+  const li = function(music) {
+    return (
+      <ImageListItem
+        id={music.id}
+        title={music.name}
+        image={music.poster}
+        link={<LinkButton to={`/show/${music.id}`}>Details</LinkButton>}
+      />
+    )
+  }
+
   return (
     <div>
       <Header />
@@ -19,12 +32,7 @@ const Home = function() {
               title="Add New Favorite"
               link={<LinkButton to="/new">Add</LinkButton>}
             />
-            <ImageListItem
-              id={1}
-              title="Saints and Sinners"
-              image="https://i.scdn.co/image/f896b4651bea2a75dc1418a284473c02444c0c1c"
-              link={<LinkButton to="/show/1">Details</LinkButton>}
-            />
+            {map(li, props.favorites)}
           </List>
         </div>
       </main>
@@ -32,7 +40,15 @@ const Home = function() {
   )
 }
 
-export default Home
+const connector = connect(mapStateToProps)
+
+function mapStateToProps(state) {
+  return {
+    favorites: state.favorites
+  }
+}
+
+export default connector(Home)
 
 function openDocs(e) {
   if (/localhost/.test(window.location.href)) {

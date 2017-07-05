@@ -3,28 +3,59 @@ import MusicCard from '../components/music-card'
 import Header from '../containers/header'
 import BigButton from '../components/big-button'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { find } from 'ramda'
+import { SET_FAVORITE, CLEAR_FAVORITE } from '../constants'
 
-const Show = props =>
-  <div>
-    <Header />
-    <main>
-      <div className="mw6 center mt2 tc">
-        <MusicCard
-          image="https://i.scdn.co/image/f896b4651bea2a75dc1418a284473c02444c0c1c"
-          title="Saints and Sinners"
-        />
-      </div>
-      <div className="mw6 tc center">
-        <a
-          className="link ba br2 w4 pa2 center db mb3"
-          href={`https://open.spotify.com/album/5HSdx1824FepWuf8NbG7B3`}
-          target="_blank"
-        >
-          Play Album
-        </a>
-        <Link to="/"><BigButton>Return</BigButton></Link>
-      </div>
-    </main>
-  </div>
+class Show extends React.Component {
+  componentDidMount() {
+    const props = this.props
+    const showID = props.match.params.id
+    const foundMusic = find(
+      music => String(music.id) === showID,
+      props.favorites
+    )
+    props.dispatch({ type: SET_FAVORITE, payload: foundMusic })
+  }
 
-export default Show
+  render() {
+    const fav = this.props.favorite
+    return (
+      <div>
+        <Header />
+        <main>
+          <div className="mw6 center mt2 tc">
+            <MusicCard image={fav.poster} title={fav.name} />
+          </div>
+          <div className="mw6 tc center">
+            <a
+              className="link ba br2 w4 pa2 center db mb3"
+              href={fav.href}
+              target="_blank"
+            >
+              Play Album
+            </a>
+            <Link to="/">
+              <BigButton>Return</BigButton>
+            </Link>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch({ type: CLEAR_FAVORITE })
+  }
+}
+
+const connector = connect(mapStateToProps)
+
+function mapStateToProps(state) {
+  return {
+    favorite: state.favorite,
+    favorites: state.favorites
+  }
+}
+
+export default connector(Show)
