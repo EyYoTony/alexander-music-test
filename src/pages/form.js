@@ -74,8 +74,15 @@ const connector = connect(mapStateToProps, mapActionsToProps)
 
 const handleSubmit = history => (dispatch, getState) => {
   const fav = getState().favorite
-  //add fetch POST here later
-  dispatch({ type: ADD_FAVORITE_TO_FAVORITES, payload: fav })
+  fetch(process.env.REACT_APP_API + '/favorites', {
+    method: 'POST',
+    headers: new Headers({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(fav)
+  })
+    .then(res => res.json())
+    .then(favorite => {
+      dispatch({ type: ADD_FAVORITE_TO_FAVORITES, payload: favorite })
+    })
   dispatch({ type: CLEAR_FAVORITE })
   history.push('/')
 }

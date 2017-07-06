@@ -17,6 +17,13 @@
       "href": "https://api.spotify.com/v1/albums/2BtE7qm1qzM80p9vLSiXkj",
       "name": "Magical Mystery Tour (Remastered)",
       "poster": "https://i.scdn.co/image/44a8e349f4d580ce4ea15ff8b60a37b2c7595c4b"
+    },
+    {
+      "id": "7eyQXxuf2nGj9d2367Gi5f",
+      "href": "https://api.spotify.com/v1/albums/7eyQXxuf2nGj9d2367Gi5f",
+      "name": "In Rainbows",
+      "poster": "https://i.scdn.co/image/34c390dd70fca5ba873ec7bc27c0f15888e77f12",
+      "band": "Radiohead"
     }
   ]
 }
