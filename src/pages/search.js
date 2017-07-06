@@ -3,7 +3,12 @@ import Header from '../containers/header'
 import { Link } from 'react-router-dom'
 import { TextField, List, ImageListItem, Button } from 'jrs-react-components'
 import BigButton from '../components/big-button'
-import { SET_SEARCH_TEXT, SET_SEARCH_RESULTS, SET_FAVORITE } from '../constants'
+import {
+  SET_SEARCH_TEXT,
+  SET_SEARCH_RESULTS,
+  SET_FAVORITE,
+  CLEAR_RESULTS
+} from '../constants'
 import { map } from 'ramda'
 import { connect } from 'react-redux'
 
@@ -70,6 +75,7 @@ const fetchResults = (dispatch, getState) => {
 
 const handleSelect = (history, album) => (dispatch, getState) => {
   dispatch({ type: SET_FAVORITE, payload: album })
+  dispatch({ type: CLEAR_RESULTS })
   history.push('/new')
 }
 
