@@ -11,13 +11,13 @@ import { connect } from 'react-redux'
 import LinkButton from '../components/link-button'
 
 const Home = function(props) {
-  const li = function(music) {
+  const li = function(album) {
     return (
       <ImageListItem
-        id={music.id}
-        title={music.name}
-        image={music.poster}
-        link={<LinkButton to={`/show/${music.id}`}>Details</LinkButton>}
+        id={album.id}
+        title={album.name}
+        image={album.poster}
+        link={<LinkButton to={`/show/${album.id}`}>Details</LinkButton>}
       />
     )
   }
