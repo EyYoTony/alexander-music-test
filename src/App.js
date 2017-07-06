@@ -4,6 +4,7 @@ import Home from './pages/home'
 import Show from './pages/show'
 import Search from './pages/search'
 import Form from './pages/form'
+import EditRank from './pages/edit-rank'
 
 const App = function(props) {
   return (
@@ -13,6 +14,7 @@ const App = function(props) {
         <Route path="/show/:id" component={Show} />
         <Route path="/search" component={Search} />
         <Route path="/new" component={Form} />
+        <Route path="/edit-rank/:id" component={EditRank} />
       </div>
     </BrowserRouter>
   )

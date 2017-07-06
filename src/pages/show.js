@@ -38,6 +38,11 @@ class Show extends React.Component {
             <Link to="/">
               <BigButton>Return</BigButton>
             </Link>
+            <div>
+              <Link to={`/edit-rank/${fav.id}`}>
+                <BigButton>Edit Rank</BigButton>
+              </Link>
+            </div>
           </div>
         </main>
       </div>
